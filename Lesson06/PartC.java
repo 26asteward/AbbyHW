@@ -1,15 +1,17 @@
 public class PartC {
     public static void main(String[] args) {
-        double a = 1.2;
-        double b = 3.0;
-        double c = a * b;
+        java.util.Scanner scanner = new java.util.Scanner(System.in);
+        System.out.print("Enter three strings: ");
+        String str1 = scanner.next();
+        String str2 = scanner.next();
+        String str3 = scanner.next();
+        scanner.close();
 
-        c = Math.round(c * 10.0) / 10.0;
+        String[] strings = {str1, str2, str3};
+        java.util.Arrays.sort(strings);
 
-        if (c == 3.6) {
-            System.out.println("c is 3.6");
-        } else {
-            System.out.println("c is not 3.6");
+        for (String s : strings) {
+            System.out.println(s);
         }
     }
 }

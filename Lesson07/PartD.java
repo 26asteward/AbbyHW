@@ -30,4 +30,3 @@ public class PartD {
         return thousands[thousandDigit] + hundreds[hundredDigit] + tens[tenDigit] + ones[oneDigit];
     }
 }
-
