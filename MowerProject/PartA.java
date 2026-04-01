@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import mow.Mower;
 import mow.Yard;
 
 public class PartA {
@@ -16,12 +17,24 @@ public class PartA {
             System.out.print("Enter the width of the yard: ");
             int width = scanner.nextInt();
 
-            clearScreen();
-            System.out.println();
-
             Yard yard = new Yard(height, width);
-            yard.printYard();
+            Mower mower = new Mower();
+            mower.randomize(yard);
+
+            clearScreen();
+            yard.printYard(mower);
+
+            while (mower.updateMower(yard)) {
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                }
+                clearScreen();
+                yard.printYard(mower);
+            }
+
+            System.out.println("Mowing complete.");
         }
     }
 }
-

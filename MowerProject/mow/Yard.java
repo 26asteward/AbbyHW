@@ -44,4 +44,17 @@ public class Yard {
             System.out.println();
         }
     }
+
+    public void printYard(Mower mower) {
+        for (int rowIndex = 0; rowIndex < yard.length; rowIndex++) {
+            for (int colIndex = 0; colIndex < yard[rowIndex].length; colIndex++) {
+                if (rowIndex == mower.getRow() && colIndex == mower.getColumn()) {
+                    System.out.print(mower.getDirectionSymbol());
+                } else {
+                    System.out.print(yard[rowIndex][colIndex]);
+                }
+            }
+            System.out.println();
+        }
+    }
 }
