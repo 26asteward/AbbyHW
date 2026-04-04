@@ -116,8 +116,71 @@ public class Mower {
         return row;
     }
 
+    public void setRow(int row) {
+        this.row = row;
+    }
+
     public int getColumn() {
         return column;
+    }
+
+    public void setColumn(int column) {
+        this.column = column;
+    }
+
+    public void setPosition(int row, int column) {
+        this.row = row;
+        this.column = column;
+    }
+
+    public int getDirection() {
+        return direction;
+    }
+
+    public void setDirection(int direction) {
+        if (direction < 0 || direction > 3) {
+            throw new IllegalArgumentException("Direction must be 0..3.");
+        }
+        this.direction = direction;
+    }
+
+    public void turnLeft() {
+        direction = (direction + 3) % 4;
+    }
+
+    public void turnRight() {
+        direction = (direction + 1) % 4;
+    }
+
+    public void moveForward() {
+        row += ROW_DELTAS[direction];
+        column += COL_DELTAS[direction];
+    }
+
+    public boolean isFrontGrass(Yard yard) {
+        int nextRow = row + ROW_DELTAS[direction];
+        int nextCol = column + COL_DELTAS[direction];
+        if (!isInside(yard, nextRow, nextCol)) {
+            return false;
+        }
+        return yard.getCell(nextRow, nextCol) == '+';
+    }
+
+    public boolean isFrontRedBrick(Yard yard) {
+        int nextRow = row + ROW_DELTAS[direction];
+        int nextCol = column + COL_DELTAS[direction];
+        if (!isInside(yard, nextRow, nextCol)) {
+            return false;
+        }
+        return yard.getCell(nextRow, nextCol) == 'R';
+    }
+
+    public boolean cutGrass(Yard yard) {
+        if (yard.getCell(row, column) == '+') {
+            yard.setCell(row, column, ' ');
+            return true;
+        }
+        return false;
     }
 
     public char getDirectionSymbol() {

@@ -9,6 +9,15 @@ public class PartA {
         System.out.flush();
     }
 
+    public static void delay(long mseconds) {
+        try {
+            Thread.sleep(mseconds);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            System.err.println("InterruptedException received!");
+        }
+    }
+
     public static void main(String[] args) {
         try (Scanner scanner = new Scanner(System.in)) {
             System.out.print("Enter the height of the yard: ");
@@ -19,21 +28,21 @@ public class PartA {
 
             Yard yard = new Yard(height, width);
             Mower mower = new Mower();
-            mower.randomize(yard);
+            mower.setPosition(1 + height / 2, 1);
+            mower.setDirection(1);
 
             clearScreen();
             yard.printYard(mower);
 
-            while (mower.updateMower(yard)) {
-                try {
-                    Thread.sleep(100);
-                } catch (InterruptedException e) {
-                    Thread.currentThread().interrupt();
-                }
+            while (!mower.isFrontRedBrick(yard)) {
+                mower.cutGrass(yard);
+                delay(500);
+                mower.moveForward();
                 clearScreen();
                 yard.printYard(mower);
             }
 
+            mower.cutGrass(yard);
             System.out.println("Mowing complete.");
         }
     }
